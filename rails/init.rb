@@ -1,0 +1,1 @@
+require 'dragonfly_mongo_mapper_extensions'

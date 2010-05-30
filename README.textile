@@ -1,0 +1,5 @@
+- TODO MongoMapper accessors
+- TEST GridFS support
+- TEST MiniMagick processors
+
+based on Wilker Lúcio's code
