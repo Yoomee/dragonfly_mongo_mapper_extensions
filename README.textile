@@ -1,5 +1,61 @@
-- TODO MongoMapper accessors
-- TEST GridFS support
-- TEST MiniMagick processors
+h1. DragonflyMongoMapperExtensions
 
-based on Wilker Lúcio's code
+h2. Install
+
+This plugin makes Dragonfly works with MongoMapper like it works with ActiveRecord
+
+p. Install:
+
+bc. script/plugin install git://git@github.com:tomasc/dragonfly_mongo_mapper_extensions.git
+
+p. Configure:
+
+bc.. config/initializers/dragonfly.rb
+
+bc.. require 'dragonfly'
+require 'dragonfly_mongo_mapper_extensions'
+require 'rack/cache'
+
+app = Dragonfly::App[:images]
+
+# MongoMapper extensions
+MongoMapper::Document::InstanceMethods.module_eval do
+  def self.included(base)
+		base.extend Dragonfly::MongoMapperExtensions::ClassMethods
+		base.send :include, Dragonfly::MongoMapperExtensions::InstanceMethods
+		base.register_dragonfly_app :image, Dragonfly::App[:images]
+  end
+end
+
+# Dragonfly config
+app.configure_with(Dragonfly::Config::RMagickImages)
+app.configure_with(Dragonfly::Config::RailsDefaults)
+app.datastore = Dragonfly::DataStorage::MongoGridFsStore.new( MongoMapper.connection.host, MongoMapper.database.name )
+
+# Dragonfly Middleware
+middleware = Rails.respond_to?(:application) ? Rails.application.middleware : ActionController::Dispatcher.middleware
+middleware.insert_after Rack::Lock, Dragonfly::Middleware, :images
+
+# Rack Cache
+middleware.insert_before Dragonfly::Middleware, Rack::Cache, {
+  :verbose     => true,
+  :metastore   => "file:#{Rails.root}/tmp/dragonfly/cache/meta",
+  :entitystore => "file:#{Rails.root}/tmp/dragonfly/cache/body"
+}
+
+h2. Example model
+
+A sample model for you:
+
+bc.. class User
+  include Mongoid::Document
+  
+  field :name
+  field :email
+  
+  image_accessor :avatar
+end
+
+p. Notice you dont need to declare @avatar_uid@ field, the extension will do it automatic for you.
+
+p. based on Wilker Lúcio’s dragonfly_mongoid_extensions (http://github.com/wilkerlucio/dragonfly_mongoid_extensions.git)
