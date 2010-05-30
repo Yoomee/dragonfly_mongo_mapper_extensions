@@ -1,4 +1,4 @@
-h1. DragonflyMongoMapperExtensions
+h1. Dragonfly MongoMapper Extensions
 
 h2. Install
 
