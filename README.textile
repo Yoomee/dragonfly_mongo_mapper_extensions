@@ -45,8 +45,6 @@ middleware.insert_before Dragonfly::Middleware, Rack::Cache, {
 
 h2. Example model
 
-A sample model for you:
-
 bc.. class User
   include Mongoid::Document
   
