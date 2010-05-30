@@ -28,27 +28,8 @@ module Dragonfly
               attachments[attribute].to_value
             end
 
-						# MONGOID specific
-						field "#{attribute}_uid"
-						
-						attr_reader "#{attribute}_uid_was"
-						
-						define_method "#{attribute}_uid=" do |value|
-              if value != send("#{attribute}_uid")
-                instance_variable_set("@#{attribute}_uid_changed", true)
-                instance_variable_set("@#{attribute}_uid_was", send("#{attribute}_uid"))
-              end
-
-              write_attribute("#{attribute}_uid", value)
-            end
-						
-						define_method "#{attribute}_uid_changed?" do
-              instance_variable_get("@#{attribute}_uid_changed") || false
-            end
-
-            define_method "#{attribute}_uid_change" do
-              send("#{attribute}_uid_changed?") ? [send("#{attribute}_uid_was"), send("#{attribute}_uid")] : nil
-            end
+						# MongoMapper specific
+						key "#{attribute}_uid"
       
           end
     

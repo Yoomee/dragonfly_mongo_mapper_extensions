@@ -40,7 +40,7 @@ module Dragonfly
       
       def save!
         destroy! if uid_changed?
-        self.uid = app.datastore.store(temp_object)# if has_data_to_store?
+        self.uid = app.datastore.store(temp_object) if has_data_to_store?
       end
       
       def temp_object
@@ -132,7 +132,7 @@ module Dragonfly
       end
       
       def magic_attributes
-        parent_model.class.fields.keys.select { |name|
+        parent_model.class.column_names.select { |name|
           name =~ /^#{attribute_name}_(.+)$/ &&
             (can_delegate_to_temp_object?($1) || %w(size ext name).include?($1))
         }
