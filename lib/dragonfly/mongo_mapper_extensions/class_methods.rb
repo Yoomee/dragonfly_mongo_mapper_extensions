@@ -30,6 +30,9 @@ module Dragonfly
 
 						# MongoMapper specific
 						key "#{attribute}_uid"
+						key "#{attribute}_ext"
+						key "#{attribute}_name"
+						key "#{attribute}_size"
       
           end
     
