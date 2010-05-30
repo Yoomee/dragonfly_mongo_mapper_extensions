@@ -20,11 +20,11 @@ app = Dragonfly::App[:images]
 
 # MongoMapper extensions
 MongoMapper::Document::InstanceMethods.module_eval do
-  def self.included(base)
+	def self.included(base)
 		base.extend Dragonfly::MongoMapperExtensions::ClassMethods
 		base.send :include, Dragonfly::MongoMapperExtensions::InstanceMethods
 		base.register_dragonfly_app :image, Dragonfly::App[:images]
-  end
+	end
 end
 
 # Dragonfly config
@@ -38,9 +38,9 @@ middleware.insert_after Rack::Lock, Dragonfly::Middleware, :images
 
 # Rack Cache
 middleware.insert_before Dragonfly::Middleware, Rack::Cache, {
-  :verbose     => true,
-  :metastore   => "file:#{Rails.root}/tmp/dragonfly/cache/meta",
-  :entitystore => "file:#{Rails.root}/tmp/dragonfly/cache/body"
+	:verbose		 => true,
+	:metastore	 => "file:#{Rails.root}/tmp/dragonfly/cache/meta",
+	:entitystore => "file:#{Rails.root}/tmp/dragonfly/cache/body"
 }
 
 h2. Example model
@@ -48,12 +48,12 @@ h2. Example model
 A sample model for you:
 
 bc.. class User
-  include Mongoid::Document
-  
-  field :name
-  field :email
-  
-  image_accessor :avatar
+	include Mongoid::Document
+	
+	field :name
+	field :email
+	
+	image_accessor :avatar
 end
 
 p. Notice you dont need to declare @avatar_uid@ field, the extension will do it automatic for you.
