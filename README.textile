@@ -56,4 +56,4 @@ end
 
 p. Notice you don't need to declare @avatar_uid@ field, the extension defines this field automatically.
 
-p. based on Wilker Lúcio’s dragonfly_mongoid_extensions (http://github.com/wilkerlucio/dragonfly_mongoid_extensions.git)
+p. based on Wilker Lúcio’s dragonfly_mongoid_extensions @http://github.com/wilkerlucio/dragonfly_mongoid_extensions.git@
