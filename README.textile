@@ -59,4 +59,5 @@ p. Notice you don't need to declare @avatar_uid@ field, the extension defines th
 p. based on Wilker Lúcio’s dragonfly_mongoid_extensions @http://github.com/wilkerlucio/dragonfly_mongoid_extensions.git@
 
 h2. Yoomee fork
+
 Simple modification of rails/init.rb to check that Dragonfly::DataStorage::Base is available before requiring the plugin.
