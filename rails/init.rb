@@ -1,6 +1,7 @@
 begin
   Dragonfly
-  require 'dragonfly_mongo_mapper_extensions'
+  has_dragonfly = true
 rescue NameError
-  # Don't do anything yet - Dragonfly not installed
+  has_dragonfly = false
 end
+require 'dragonfly_mongo_mapper_extensions' if has_dragonfly
