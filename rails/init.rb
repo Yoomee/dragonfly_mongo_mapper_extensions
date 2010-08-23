@@ -1,5 +1,5 @@
 begin
-  Dragonfly
+  Dragonfly::DataStorage::Base
   has_dragonfly = true
 rescue NameError
   has_dragonfly = false
