@@ -5,7 +5,7 @@ module Dragonfly
       include Validations
 
       def register_dragonfly_app(accessor_prefix, app)
-        eigenclass = respond_to?(:metaclass) ? metaclass : singleton_class # Because rails changed the name from metaclass -> singleton_class
+        eigenclass = singleton_class # because rails gives deprecation notices with old code
         eigenclass.class_eval do
     
           # Defines e.g. 'image_accessor' for any activerecord class body
